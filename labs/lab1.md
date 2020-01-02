@@ -1,1 +1,2 @@
-#Goal of this lab is to setup kubernetes cluster locally for application development. For this purpose we are going to use "minikube". minikube implements a local Kubernetes cluster on macOS, Linux, and Windows for local application development. It supports most of the native kubernates functions.  
+# Goal of this lab is to setup kubernetes cluster locally for application development. 
+For this purpose we are going to use "minikube". Minikube implements a local Kubernetes cluster on macOS, Linux, and Windows for local application development. It supports most of the native kubernates functions.  
