@@ -33,7 +33,7 @@ TODO
 ```
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
-1. Install The Kubectl Command-Line Tool
+2. Install The Kubectl Command-Line Tool
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 chmod +x ./kubectl
@@ -45,7 +45,7 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
-1. Install The Kubectl Command-Line Tool
+2. Install The Kubectl Command-Line Tool
 ```
 curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
 chmod +x ./kubectl
@@ -54,22 +54,23 @@ sudo mv ./kubectl /usr/local/bin/kubectl
 ### Windows 
 
 TODO
-## Running the tests
 
-Explain how to run the automated tests for this system
+## Test the installation (For all)
 
-### Break down into end to end tests
-
-Explain what these tests test and why
-
+1. Start minikube 
 ```
-Give an example
+minikube start
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
+2. Once minikube start finishes, run the command below to check the status of the cluster:
 ```
-Give an example
+minikube status
+```
+
+3. If your cluster is running, the output from minikube status should be similar to:
+```
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
 ```
