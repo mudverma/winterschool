@@ -74,3 +74,15 @@ kubelet: Running
 apiserver: Running
 kubeconfig: Configured
 ```
+
+## Observe Kubernetes functions using kubectl command line tool 
+
+1. Check that kubectl is  installed and configured by running the ```kubectl cluster-info``` command
+
+
+2. Check the nodes by running ```kubectl get nodes```
+
+
+3. To get detailed information of a node run ```kubectl describe node```
+
+Note: Observe the output of each command carefully and correlate it with some of the components described during the class. 
