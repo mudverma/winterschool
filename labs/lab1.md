@@ -9,27 +9,27 @@ Goal of this lab is to setup kubernetes cluster locally for application developm
 
 These instructions will get you Kubernetes cluster up and running on your local machine for development and testing purposes. 
 
-### Prerequisites
+## Prerequisites
 
 Virtualisation support your system. 
 
-* Linux
-To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
+### Linux
+    To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
 ```
 grep -E --color 'vmx|svm' /proc/cpuinfo
 ```
-* MacOS
+### MacOS
 To check if virtualization is supported on macOS, run the following command on your terminal.
 ```
 sysctl -a | grep -E --color 'machdep.cpu.features|VMX' 
 ```
 If you see VMX in the output (should be colored), the VT-x feature is enabled in your machine.
 
-* Windows 
+### Windows 
 
 TODO
 
-### Installing
+## Installing
 
 A step by step series of examples that tell you how to get a development env running
 
