@@ -1,7 +1,3 @@
-# Goal of this lab is to setup kubernetes cluster locally for application development. 
-For this purpose we are going to use "minikube". Minikube implements a local Kubernetes cluster on macOS, Linux, and Windows for local application development. It supports most of the native kubernates functions.  
-
-
 # Lab 1 - Setting up Kubernetes
 Goal of this lab is to setup kubernetes cluster locally for application development. For this purpose we are going to use "minikube". Minikube that implements a local Kubernetes cluster on macOS, Linux, and Windows. It supports most of the native kubernates functions.
 
@@ -31,22 +27,33 @@ TODO
 
 ## Installing
 
-A step by step series of examples that tell you how to get a development env running
+### Linux
 
-Say what the step will be
-
+1. Get the minikube binary 
 ```
-Give the example
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
+```
+1. Install The Kubectl Command-Line Tool
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
 ```
 
-And repeat
-
+### MacOS
+1. Get the minikube binary 
 ```
-until finished
+curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64 && chmod +x minikube && sudo mv minikube /usr/local/bin/
 ```
+1. Install The Kubectl Command-Line Tool
+```
+curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/darwin/amd64/kubectl
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+```
+### Windows 
 
-End with an example of getting some data out of the system or using it for a little demo
-
+TODO
 ## Running the tests
 
 Explain how to run the automated tests for this system
