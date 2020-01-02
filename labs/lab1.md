@@ -77,7 +77,7 @@ kubeconfig: Configured
 
 ## Observe Kubernetes functions using kubectl command line tool 
 
-1. **Check that kubectl is  installed and configured by running the ```kubectl cluster-info``` command
+1. **Check that kubectl is  installed and configured by running the ```kubectl cluster-info``` command**
 
 Output Example: 
 ```
@@ -88,7 +88,7 @@ KubeDNS is running at https://x.x.x.x:8443/api/v1/namespaces/kube-system/service
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
-2. **Check the nodes by running ```kubectl get nodes```
+2. **Check the nodes by running ```kubectl get nodes```**
 
 Output Example:
 ```
@@ -98,7 +98,7 @@ minikube   Ready    master   147m   v1.15.0
 ```
 Notice that it only has one node running. 
 
-3. **To get detailed information of a node run ```kubectl describe node```
+3. **To get detailed information of a node run ```kubectl describe node```**
 
 Output Example:
 ```
