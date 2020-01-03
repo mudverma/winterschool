@@ -81,7 +81,7 @@ $ kubectl expose deployment nginx-test-deployment --type=NodePort
  
 You should expect the following output 
 ```
-$ service/nginx-test-deployment exposed
+service/nginx-test-deployment exposed
 ```
 
 2. Let's validate further by checking the service status. 
@@ -91,11 +91,35 @@ $ kubectl get services
 ```
 Do you see the service listed there? Yes?  
 
+```
+$ kubectl get services
+NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+kubernetes              ClusterIP   10.96.0.1       <none>        443/TCP        23h
+nginx-test-deployment   NodePort    10.96.147.161   <none>        80:31171/TCP   53s
+``` 
+
 3. Now let's try to access it. We still don't know the URL to this service. Run the following command 
 
 ```
 $ minikube service nginx-test-deployment --url
 ```
 You should see a URL in output. Visit this URL in your browser. And you should see the ngnix welcome page! 
+
+## Dashboard
+
+What we have done until now can also be done using the dashboard.  
+Run the following command:
+
+```
+$ minikube dashboard
+```
+It should open up the dashboard in your default browser. 
+
+**Excercise following:**
+1. How many nodes do you have in your cluster?
+2. What namespace are you operating in?
+4. Find out events of the pod/deployment/service you just crearted. 
+5. Find out logs of your service. 
+
 
 
