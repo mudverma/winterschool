@@ -184,4 +184,4 @@ Events:              <none>
 Note: Observe the output of each command carefully and correlate it with some of the components described during the class. 
 
 
-# Congratulations! You have successfully setup a single node local Kubernetes environment. In next lab we would try to deploy a single container applications. 
+# Congratulations! You have successfully setup a single node local Kubernetes environment. In next lab we would try to deploy a single container application. 
