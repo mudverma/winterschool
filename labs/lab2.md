@@ -157,7 +157,7 @@ $ kubectl get all
 
 ### That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. 
 
-#### For later: Run other standalone applications on kubernetes. 
+**For later:** Run other standalone applications on kubernetes. 
 
 
 
