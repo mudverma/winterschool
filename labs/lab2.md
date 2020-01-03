@@ -118,8 +118,53 @@ It should open up the dashboard in your default browser.
 **Excercise following:**
 1. How many nodes do you have in your cluster?
 2. What namespace are you operating in?
-4. Find out events of the pod/deployment/service you just crearted. 
+4. Find out events for pod/deployment/service you just crearted. 
 5. Find out logs of your service. 
+
+
+## Deleting the deployment and service 
+
+1. Checkout the relevant ngnix deployment and service. Run the following command the fetch all the resources. 
+```
+$ kubectl get all
+```
+Do you see your deployment and service listed here? 
+
+```
+NAME                                         READY   STATUS    RESTARTS   AGE
+pod/nginx-test-deployment-56d4bb4855-kkbxb   1/1     Running   0          42m
+
+NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes              ClusterIP   10.96.0.1       <none>        443/TCP        24h
+service/nginx-test-deployment   NodePort    10.96.147.161   <none>        80:31171/TCP   36m
+
+NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/nginx-test-deployment   1/1     1            1           42m
+
+NAME                                               DESIRED   CURRENT   READY   AGE
+replicaset.apps/nginx-test-deployment-56d4bb4855   1         1         1       42m
+```
+
+2. To delete it, run the following command
+```
+$ kubectl delete deployment.apps/nginx-test-deployment service/nginx-test-deployment
+```
+
+3. Check if ngnix deployment or service exist. 
+```
+$ kubectl get all
+```
+
+##That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. 
+
+For later: Run other standalone applications on kubernetes. 
+
+
+
+
+
+
+
 
 
 
