@@ -76,25 +76,25 @@ For this purpose, we are going to expose this deployment as a service. This serv
 1. Run the following command to expose it as a service: 
 
 ```
-kubectl expose deployment nginx-test-deployment --type=NodePort
+$ kubectl expose deployment nginx-test-deployment --type=NodePort
 ```
  
 You should expect the following output 
 ```
-service/nginx-test-deployment exposed
+$ service/nginx-test-deployment exposed
 ```
 
 2. Let's validate further by checking the service status. 
 
 ```
-kubectl get services
+$ kubectl get services
 ```
 Do you see the service listed there? Yes?  
 
 3. Now let's try to access it. We still don't know the URL to this service. Run the following command 
 
 ```
-minikube service nginx-test-deployment --url
+$ minikube service nginx-test-deployment --url
 ```
 You should see a URL in output. Visit this URL in your browser. And you should see the ngnix welcome page! 
 
