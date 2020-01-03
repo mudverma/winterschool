@@ -7,7 +7,7 @@ These instructions will get you Kubernetes cluster up and running on your local 
 
 ## Prerequisites
 
-Virtualisation support your system. 
+Virtualisation support in your system. 
 
 ### Linux
     To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
