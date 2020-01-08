@@ -7,7 +7,7 @@ These instructions will get you Kubernetes cluster up and running on your local 
 
 ## Prerequisites
 
-Virtualisation support in your system. 
+1. Virtualisation support in your system. 
 
 ### Linux
     To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
@@ -24,6 +24,20 @@ If you see VMX in the output (should be colored), the VT-x feature is enabled in
 ### Windows 
 
 TODO
+
+2. Install git and curl 
+
+```
+sudo apt-get install git  OR sudo yum install git
+
+```
+Curl
+
+```
+sudo apt-get install curl  OR sudo yum install curl
+
+```
+
 
 ## Installing
 
