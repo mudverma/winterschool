@@ -38,8 +38,14 @@ sudo apt-get install curl  OR sudo yum install curl
 
 ```
 
+3. Install docker to your system  - Ignore if already installed
 
-## Installing
+```
+wget -qO- https://get.docker.com/ | sh
+```
+
+
+## Installing Kubernetes 
 
 ### Linux
 
