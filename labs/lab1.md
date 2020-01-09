@@ -7,7 +7,7 @@ These instructions will get you Kubernetes cluster up and running on your local 
 
 ## Prerequisites
 
-Virtualisation support in your system. 
+1. Virtualisation support in your system. 
 
 ### Linux
     To check if virtualization is supported on Linux, run the following command and verify that the output is non-empty:
@@ -25,7 +25,27 @@ If you see VMX in the output (should be colored), the VT-x feature is enabled in
 
 TODO
 
-## Installing
+2. Install git and curl 
+
+```
+sudo apt-get install git  OR sudo yum install git
+
+```
+Curl
+
+```
+sudo apt-get install curl  OR sudo yum install curl
+
+```
+
+3. Install docker to your system  - Ignore if already installed
+
+```
+wget -qO- https://get.docker.com/ | sh
+```
+
+
+## Installing Kubernetes 
 
 ### Linux
 
@@ -59,7 +79,7 @@ TODO
 
 1. Start minikube 
 ```
-minikube start
+minikube start --vm-driver=none --cpus 4 --memory 8192
 ```
 
 2. Once minikube start finishes, run the command below to check the status of the cluster:
