@@ -12,9 +12,191 @@ Follow the instructions step and by step and do let instructors know if you face
 
 ## Prerequisites
 
-Lab1
+Lab2
 
-## Create a deployment
+### 1. Cleanup and restart minikube
+
+```
+minikube stop
+minikube delete
+```
+
+Linux
+```
+minikube start --vm-driver=none --cpus 4 --memory 8192
+```
+
+Mac
+```
+minikube start --cpus 4 --memory 8192
+```
+### 2. Create a namespace 
+
+```
+kubectl create namespace <name>
+namespace/<name> created  
+```
+
+### 3. Add Docker env to minikube 
+
+```
+minikube docker-env
+eval $(minikube docker-env)
+
+```
+
+##  Acme-Air Deployment 
+
+
+### 1. Enable Ingress
+```
+minikube addons enable ingress
+```
+
+Output
+```
+ingress was successfully enabled
+```
+
+### 2. Check artefacts 
+
+Go to /script directory of downloaded git repo  
+https://github.com/mudverma/winterschool
+
+
+There are 10 yamls files and 2 shell scripts. Please go through the content of each file and try to correlate it with the theory class. 
+
+```
+$ ls
+acmeair-authservice-ingress.yaml		
+acmeair-flightservice-ingress.yaml		
+deploy-acmeair-authservice-java.yaml		
+deploy-acmeair-flightservice-java.yaml
+acmeair-bookingservice-ingress.yaml		
+acmeair-mainservice-ingress.yaml		
+deploy-acmeair-bookingservice-java.yaml		
+deploy-acmeair-mainservice-java.yaml
+acmeair-customerservice-ingress.yaml		
+deploy-acmeair-customerservice-java.yaml	
+deployToMinikube.sh
+deleteAcmeAir.sh
+```
+
+A sample deployment configuration for bookingservice and bookingdb is here
+
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acmeair-booking-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: acmeair-booking-deployment
+  template:
+    metadata:
+      labels:
+        name: acmeair-booking-deployment
+        service: acmeair-bookingservice
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9080"
+    spec:
+      containers:
+      - name: acmeair-booking-deployment
+        image: muditverma/hcwc-bookingservice:latest
+        ports:
+          - containerPort: 9080
+          - containerPort: 9443
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: USERNAME
+          value: admin
+        - name: PASSWORD
+          value: password
+        - name: MONGO_HOST
+          value: acmeair-booking-db
+        - name: JVM_ARGS
+          value: "-DcustomerClient/mp-rest/url=http://acmeair-customer-service:9080 -DflightClient/mp-rest/url=http://acmeair-flight-service:9080 -Dmp.jwt.verify.publickey.location=http://acmeair-auth-service:9080/getJwk"
+        - name: TRACK_REWARD_MILES
+          value: 'true'
+        - name: SECURE_SERVICE_CALLS
+          value: 'true'
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 120
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acmeair-booking-service
+  namespace: mudit
+spec:
+  ports:
+    - port: 9080
+  selector:
+    name: acmeair-booking-deployment
+---
+##### Booking Database  #####
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    service: acmeair-booking-db
+  name: acmeair-booking-db
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    service: acmeair-booking-db
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: acmeair-booking-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: acmeair-booking-db
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: acmeair-booking-db
+    spec:
+      containers:
+      - image: muditverma/hcwc-mongodb:latest
+        name: acmeair-booking-db
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        resources: {}
+      restartPolicy: Always
+status: {}
+
+```
+
+
+
 
 Kubernetes resources are created in a declarative way using yaml files. Each resource has a configuration yaml file that allows user to specify different parameters within a resource. 
 For please take 5 mins to go through this link -> https://developer.ibm.com/tutorials/yaml-basics-and-usage-in-kubernetes/ 
