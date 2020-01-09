@@ -1,4 +1,4 @@
-# Lab 2 - Deploying an application consisting of multiple microservices 
+# Lab 3 - Deploying an application consisting of multiple microservices 
 Goal of this lab is to deploy a multi container application on kubernetes and expose it as a service to external world. For this purpose, we are going to use Acme-air application. Acme-Air is a fictious airline application consisting of 8 microservices (1 UI, 4 Rest API servers and 3 databases) [Acme-Air!](https://github.com/blueperf/). 
 
 ## Topology 
@@ -194,6 +194,56 @@ spec:
 status: {}
 
 ```
+### 3. Replace namespace name
+Findout namespace in all yaml files and replace it with one you created earlier. 
+
+
+### 3. Deploy the microservices to Kubernetes 
+
+Note: It might take sometime to pull the images from the repos and create pods/containers.  Run the following script 
+
+deployToMinikube.sh
+```
+#!/bin/bash
+kubectl apply -f deploy-acmeair-mainservice-java.yaml
+kubectl apply -f deploy-acmeair-authservice-java.yaml
+kubectl apply -f deploy-acmeair-bookingservice-java.yaml
+kubectl apply -f deploy-acmeair-customerservice-java.yaml
+kubectl apply -f deploy-acmeair-flightservice-java.yaml
+
+kubectl apply -f  acmeair-authservice-ingress.yaml
+kubectl apply -f  acmeair-mainservice-ingress.yaml
+kubectl apply -f  acmeair-bookingservice-ingress.yaml
+kubectl apply -f  acmeair-customerservice-ingress.yaml
+kubectl apply -f  acmeair-flightservice-ingress.yaml
+```
+
+
+Expect to see the following output 
+```
+deployment.apps/acmeair-main-deployment created
+service/acmeair-main-service created
+deployment.apps/acmeair-auth-deployment created
+service/acmeair-auth-service created
+deployment.apps/acmeair-booking-deployment created
+service/acmeair-booking-service created
+service/acmeair-booking-db created
+deployment.apps/acmeair-booking-db created
+deployment.apps/acmeair-customer-deployment created
+service/acmeair-customer-service created
+service/acmeair-customer-db created
+deployment.apps/acmeair-customer-db created
+deployment.apps/acmeair-flight-deployment created
+service/acmeair-flight-service created
+service/acmeair-flight-db created
+deployment.apps/acmeair-flight-db created
+ingress.extensions/acmeair-auth-ingress created
+ingress.extensions/acmeair-main-ingress created
+ingress.extensions/acmeair-booking-ingress created
+ingress.extensions/acmeair-customer-ingress created
+ingress.extensions/acmeair-flight-ingress created
+```
+
 
 
 
