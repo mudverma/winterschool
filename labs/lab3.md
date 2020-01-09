@@ -202,7 +202,7 @@ Findout namespace in all yaml files and replace it with one you created earlier.
 
 Note: It might take sometime to pull the images from the repos and create pods/containers.  Run the following script 
 
-deployToMinikube.sh
+bash deployToMinikube.sh
 ```
 #!/bin/bash
 kubectl apply -f deploy-acmeair-mainservice-java.yaml
@@ -245,175 +245,55 @@ ingress.extensions/acmeair-flight-ingress created
 ```
 
 
-
-
-
-Kubernetes resources are created in a declarative way using yaml files. Each resource has a configuration yaml file that allows user to specify different parameters within a resource. 
-For please take 5 mins to go through this link -> https://developer.ibm.com/tutorials/yaml-basics-and-usage-in-kubernetes/ 
-
-1. Create the ngnix deployment configuration file `ngnix-deployment.yaml`. Open your favorite editor and copy paste the following. Take a moment to read different keys and values. 
+### 4. Check the status periodically to see the progress 
 
 ```
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: nginx-test-deployment
-  labels:
-    app: nginx-test
-spec:
-  selector:
-    matchLabels:
-      app: nginx-test
-  template:
-    metadata:
-      labels:
-        app: nginx-test
-    spec:
-      containers:
-      - name: nginx-test
-        image: nginx:latest
-        ports:
-        - containerPort: 80
+$ kubectl get pods
+NAME                                          READY   STATUS    RESTARTS   AGE
+acmeair-auth-deployment-b696d7cf9-nq8p2       1/1     Running   0          15m
+acmeair-booking-db-cf5b5d49f-9kpbd            1/1     Running   0          15m
+acmeair-booking-deployment-665599b6bb-5r4ms   1/1     Running   0          15m
+acmeair-customer-db-755b689c79-vg6z5          1/1     Running   0          15m
+acmeair-customer-deployment-65f898bf6-pw4kc   1/1     Running   0          15m
+acmeair-flight-db-55dd58dbc9-5zh5w            1/1     Running   0          15m
+acmeair-flight-deployment-69b776b47f-v7mmk    1/1     Running   0          15m
+acmeair-main-deployment-646875f86d-b7jv7      1/1     Running   0          15m
 ```
-2. Create a deployment. 
-
-```
-kubectl apply -f ngnix-deployment.yaml
-```
-
-You should expect the following output 
-
-```
-$ kubectl apply -f ngnix-deployment.yaml 
-deployment.apps/nginx-test-deployment created
-
-```
-3. Check if the deployment is created 
 
 ```
 $ kubectl get deployment
-NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
-nginx-test-deployment   1/1     1            1           2m
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+acmeair-auth-deployment       1/1     1            1           16m
+acmeair-booking-db            1/1     1            1           16m
+acmeair-booking-deployment    1/1     1            1           16m
+acmeair-customer-db           1/1     1            1           16m
+acmeair-customer-deployment   1/1     1            1           16m
+acmeair-flight-db             1/1     1            1           16m
+acmeair-flight-deployment     1/1     1            1           16m
+acmeair-main-deployment       1/1     1            1           16m
 ```
-
-4. Check if the pod is created 
-```
-$ kubectl get pods
-NAME                                     READY   STATUS    RESTARTS   AGE
-nginx-test-deployment-56d4bb4855-kkbxb   1/1     Running   0          2m4s
-```
-
-**Congratulations! You have successfully deployed your first pod to kubernetes cluster.** 
-
-## Create a service
-
-Now that we are successfully deployed a pod to kubernetes cluster, we need to expose it as a service to the external world. For now it is only accessible within the cluster. 
-For this purpose, we are going to expose this deployment as a service. This service then be accessible from outside the cluster (i.e. your browser). 
-
-1. Run the following command to expose it as a service: 
-
-```
-$ kubectl expose deployment nginx-test-deployment --type=NodePort
-```
- 
-You should expect the following output 
-```
-service/nginx-test-deployment exposed
-```
-
-2. Let's validate further by checking the service status. 
 
 ```
 $ kubectl get services
-```
-Do you see the service listed there? Yes?  
-
-```
-$ kubectl get services
-NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-kubernetes              ClusterIP   10.96.0.1       <none>        443/TCP        23h
-nginx-test-deployment   NodePort    10.96.147.161   <none>        80:31171/TCP   53s
-``` 
-
-3. Now let's try to access it. We still don't know the URL to this service. Run the following command 
-
-```
-$ minikube service nginx-test-deployment --url
-```
-You should see a URL in output. Visit this URL in your browser. And you should see the ngnix welcome page! 
-
-## Dashboard
-
-What we have done until now can also be done using the dashboard.  
-Run the following command:
-
-```
-$ minikube dashboard
-```
-It should open up the dashboard in your default browser. 
-
-**Excercise following:**
-1. How many nodes do you have in your cluster?
-2. What namespace are you operating in?
-4. Find out events for pod/deployment/service you just crearted. 
-5. Find out logs of your service. 
-
-
-## Deleting the deployment and service 
-
-1. Checkout the relevant ngnix deployment and service. Run the following command the fetch all the resources. 
-```
-$ kubectl get all
-```
-Do you see your deployment and service listed here? 
-
-```
-NAME                                         READY   STATUS    RESTARTS   AGE
-pod/nginx-test-deployment-56d4bb4855-kkbxb   1/1     Running   0          42m
-
-NAME                            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-service/kubernetes              ClusterIP   10.96.0.1       <none>        443/TCP        24h
-service/nginx-test-deployment   NodePort    10.96.147.161   <none>        80:31171/TCP   36m
-
-NAME                                    READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/nginx-test-deployment   1/1     1            1           42m
-
-NAME                                               DESIRED   CURRENT   READY   AGE
-replicaset.apps/nginx-test-deployment-56d4bb4855   1         1         1       42m
+NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE
+acmeair-booking-db    ClusterIP   10.96.232.237   <none>        27017/TCP   16m
+acmeair-customer-db   ClusterIP   10.96.167.243   <none>        27017/TCP   16m
+acmeair-flight-db     ClusterIP   10.96.144.39    <none>        27017/TCP   16m
+kubernetes            ClusterIP   10.96.0.1       <none>        443/TCP     19m
 ```
 
-2. To delete it, run the following command
-```
-$ kubectl delete deployment.apps/nginx-test-deployment service/nginx-test-deployment
-```
+### 5. Let's expose the main service outside. Remember Lab2? 
 
-3. Check if ngnix deployment or service exist. 
 ```
-$ kubectl get all
+kubectl expose deployment acmeair-main-deployment --type=NodePort
 ```
 
-### That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. 
 
-**For later:** Run other standalone applications on kubernetes. 
+```
+minikube service acmeair-main-deployment --url
+http://x.x.x.x:31895
+http://x.x.x.x:32648
 
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-PVC 
-Ingress - AcmeAir 
-Resource - AcmeAir
-Autoscaler - AcmeAir
-
-
-ISTIO - Demo
+resources, autoscalar 
