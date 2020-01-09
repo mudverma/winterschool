@@ -1,0 +1,102 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: acmeair-flight-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: acmeair-flight-deployment
+  template:
+    metadata:
+      labels:
+        name: acmeair-flight-deployment
+        service: acmeair-flightservice
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9080"
+    spec:
+      containers:
+      - name: acmeair-flight-deployment
+        image: muditverma/hcwc-flightservice:latest
+        ports:
+          - containerPort: 9080
+          - containerPort: 9443
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: USERNAME
+          value: admin
+        - name: PASSWORD
+          value: password
+        - name: MONGO_HOST
+          value: acmeair-flight-db
+        - name: SECURE_SERVICE_CALLS
+          value: 'true'
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 120
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: acmeair-flight-service
+spec:
+  ports:
+    - port: 9080
+  selector:
+    name: acmeair-flight-deployment
+---
+##### Flight Database #####
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    service: acmeair-flight-db
+  name: acmeair-flight-db
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    protocol: TCP
+    targetPort: 27017
+  selector:
+    service: acmeair-flight-db
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  name: acmeair-flight-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: acmeair-flight-db
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        service: acmeair-flight-db
+    spec:
+      containers:
+      - image: muditverma/hcwc-mongodb:latest
+        name: acmeair-flight-db
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        resources: {}
+      restartPolicy: Always
+status: {}
