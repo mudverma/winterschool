@@ -246,54 +246,104 @@ ingress.extensions/acmeair-flight-ingress created
 
 
 ### 4. Check the status periodically to see the progress 
+```
+$ kubectl get all
+NAME                                              READY   STATUS    RESTARTS   AGE
+pod/acmeair-auth-deployment-b696d7cf9-t2mqd       1/1     Running   0          65s
+pod/acmeair-booking-db-cf5b5d49f-8jmjv            1/1     Running   0          65s
+pod/acmeair-booking-deployment-665599b6bb-4qrv9   1/1     Running   0          65s
+pod/acmeair-customer-db-755b689c79-2r5l9          1/1     Running   0          65s
+pod/acmeair-customer-deployment-65f898bf6-2rjjh   1/1     Running   0          65s
+pod/acmeair-flight-db-55dd58dbc9-jtz54            1/1     Running   0          65s
+pod/acmeair-flight-deployment-69b776b47f-gqtj5    1/1     Running   0          65s
+pod/acmeair-main-deployment-646875f86d-n4lc4      1/1     Running   0          66s
+
+NAME                                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE
+service/acmeair-auth-deployment       ClusterIP   10.96.93.183    <none>        9080/TCP    65s
+service/acmeair-booking-db            ClusterIP   10.96.127.163   <none>        27017/TCP   65s
+service/acmeair-booking-deployment    ClusterIP   10.96.128.61    <none>        9080/TCP    65s
+service/acmeair-customer-db           ClusterIP   10.96.192.147   <none>        27017/TCP   65s
+service/acmeair-customer-deployment   ClusterIP   10.96.112.109   <none>        9080/TCP    65s
+service/acmeair-flight-db             ClusterIP   10.96.130.50    <none>        27017/TCP   65s
+service/acmeair-flight-deployment     ClusterIP   10.96.108.122   <none>        9080/TCP    65s
+service/acmeair-main-deployment       ClusterIP   10.96.75.2      <none>        9080/TCP    66s
+service/kubernetes                    ClusterIP   10.96.0.1       <none>        443/TCP     79m
+
+NAME                                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/acmeair-auth-deployment       1/1     1            1           65s
+deployment.apps/acmeair-booking-db            1/1     1            1           65s
+deployment.apps/acmeair-booking-deployment    1/1     1            1           65s
+deployment.apps/acmeair-customer-db           1/1     1            1           65s
+deployment.apps/acmeair-customer-deployment   1/1     1            1           65s
+deployment.apps/acmeair-flight-db             1/1     1            1           65s
+deployment.apps/acmeair-flight-deployment     1/1     1            1           65s
+deployment.apps/acmeair-main-deployment       1/1     1            1           66s
+
+NAME                                                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/acmeair-auth-deployment-b696d7cf9       1         1         1       65s
+replicaset.apps/acmeair-booking-db-cf5b5d49f            1         1         1       65s
+replicaset.apps/acmeair-booking-deployment-665599b6bb   1         1         1       65s
+replicaset.apps/acmeair-customer-db-755b689c79          1         1         1       65s
+replicaset.apps/acmeair-customer-deployment-65f898bf6   1         1         1       65s
+replicaset.apps/acmeair-flight-db-55dd58dbc9            1         1         1       65s
+replicaset.apps/acmeair-flight-deployment-69b776b47f    1         1         1       65s
+replicaset.apps/acmeair-main-deployment-646875f86d      1         1         1       66s
+Mudits-MacBook-Pro:scripts mudit$ kubectl get all
+NAME                                              READY   STATUS    RESTARTS   AGE
+pod/acmeair-auth-deployment-b696d7cf9-t2mqd       1/1     Running   0          2m13s
+pod/acmeair-booking-db-cf5b5d49f-8jmjv            1/1     Running   0          2m13s
+pod/acmeair-booking-deployment-665599b6bb-4qrv9   1/1     Running   0          2m13s
+pod/acmeair-customer-db-755b689c79-2r5l9          1/1     Running   0          2m13s
+pod/acmeair-customer-deployment-65f898bf6-2rjjh   1/1     Running   0          2m13s
+pod/acmeair-flight-db-55dd58dbc9-jtz54            1/1     Running   0          2m13s
+pod/acmeair-flight-deployment-69b776b47f-gqtj5    1/1     Running   0          2m13s
+pod/acmeair-main-deployment-646875f86d-n4lc4      1/1     Running   0          2m14s
+
+NAME                                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE
+service/acmeair-auth-deployment       ClusterIP   10.96.93.183    <none>        9080/TCP    2m13s
+service/acmeair-booking-db            ClusterIP   10.96.127.163   <none>        27017/TCP   2m13s
+service/acmeair-booking-deployment    ClusterIP   10.96.128.61    <none>        9080/TCP    2m13s
+service/acmeair-customer-db           ClusterIP   10.96.192.147   <none>        27017/TCP   2m13s
+service/acmeair-customer-deployment   ClusterIP   10.96.112.109   <none>        9080/TCP    2m13s
+service/acmeair-flight-db             ClusterIP   10.96.130.50    <none>        27017/TCP   2m13s
+service/acmeair-flight-deployment     ClusterIP   10.96.108.122   <none>        9080/TCP    2m13s
+service/acmeair-main-deployment       ClusterIP   10.96.75.2      <none>        9080/TCP    2m14s
+service/kubernetes                    ClusterIP   10.96.0.1       <none>        443/TCP     80m
+
+NAME                                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/acmeair-auth-deployment       1/1     1            1           2m13s
+deployment.apps/acmeair-booking-db            1/1     1            1           2m13s
+deployment.apps/acmeair-booking-deployment    1/1     1            1           2m13s
+deployment.apps/acmeair-customer-db           1/1     1            1           2m13s
+deployment.apps/acmeair-customer-deployment   1/1     1            1           2m13s
+deployment.apps/acmeair-flight-db             1/1     1            1           2m13s
+deployment.apps/acmeair-flight-deployment     1/1     1            1           2m13s
+deployment.apps/acmeair-main-deployment       1/1     1            1           2m14s
+
+NAME                                                    DESIRED   CURRENT   READY   AGE
+replicaset.apps/acmeair-auth-deployment-b696d7cf9       1         1         1       2m13s
+replicaset.apps/acmeair-booking-db-cf5b5d49f            1         1         1       2m13s
+replicaset.apps/acmeair-booking-deployment-665599b6bb   1         1         1       2m13s
+replicaset.apps/acmeair-customer-db-755b689c79          1         1         1       2m13s
+replicaset.apps/acmeair-customer-deployment-65f898bf6   1         1         1       2m13s
+replicaset.apps/acmeair-flight-db-55dd58dbc9            1         1         1       2m13s
+replicaset.apps/acmeair-flight-deployment-69b776b47f    1         1         1       2m13s
+replicaset.apps/acmeair-main-deployment-646875f86d      1         1         1       2m14s
 
 ```
-$ kubectl get pods
-NAME                                          READY   STATUS    RESTARTS   AGE
-acmeair-auth-deployment-b696d7cf9-nq8p2       1/1     Running   0          15m
-acmeair-booking-db-cf5b5d49f-9kpbd            1/1     Running   0          15m
-acmeair-booking-deployment-665599b6bb-5r4ms   1/1     Running   0          15m
-acmeair-customer-db-755b689c79-vg6z5          1/1     Running   0          15m
-acmeair-customer-deployment-65f898bf6-pw4kc   1/1     Running   0          15m
-acmeair-flight-db-55dd58dbc9-5zh5w            1/1     Running   0          15m
-acmeair-flight-deployment-69b776b47f-v7mmk    1/1     Running   0          15m
-acmeair-main-deployment-646875f86d-b7jv7      1/1     Running   0          15m
-```
 
-```
-$ kubectl get deployment
-NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
-acmeair-auth-deployment       1/1     1            1           16m
-acmeair-booking-db            1/1     1            1           16m
-acmeair-booking-deployment    1/1     1            1           16m
-acmeair-customer-db           1/1     1            1           16m
-acmeair-customer-deployment   1/1     1            1           16m
-acmeair-flight-db             1/1     1            1           16m
-acmeair-flight-deployment     1/1     1            1           16m
-acmeair-main-deployment       1/1     1            1           16m
-```
-
-```
-$ kubectl get services
-NAME                  TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)     AGE
-acmeair-booking-db    ClusterIP   10.96.232.237   <none>        27017/TCP   16m
-acmeair-customer-db   ClusterIP   10.96.167.243   <none>        27017/TCP   16m
-acmeair-flight-db     ClusterIP   10.96.144.39    <none>        27017/TCP   16m
-kubernetes            ClusterIP   10.96.0.1       <none>        443/TCP     19m
-```
-
-### 5. Let's expose the main service outside. Remember Lab2? 
-
-```
-kubectl expose deployment acmeair-main-deployment --type=NodePort
-```
+** Question: What does ingress do here **
 
 
+### 5. Let's try to access the application
 ```
-minikube service acmeair-main-deployment --url
-http://x.x.x.x:31895
-http://x.x.x.x:32648
+minikube ip
+```
 
+Let's access the application
 ```
+http://x.x.x.x/acmeair
+```
+
 
 resources, autoscalar 
