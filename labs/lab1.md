@@ -79,7 +79,7 @@ TODO
 
 1. Start minikube 
 ```
-minikube start --vm-driver=none
+minikube start --vm-driver=none --cpus 4 --memory 8192
 ```
 
 2. Once minikube start finishes, run the command below to check the status of the cluster:
