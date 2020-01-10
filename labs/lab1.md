@@ -21,9 +21,6 @@ sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 ```
 If you see VMX in the output (should be colored), the VT-x feature is enabled in your machine.
 
-### Windows 
-
-TODO
 
 2. Install git and curl 
 
@@ -43,7 +40,6 @@ sudo apt-get install curl  OR sudo yum install curl
 ```
 wget -qO- https://get.docker.com/ | sh
 ```
-
 
 ## Installing Kubernetes 
 
@@ -71,16 +67,26 @@ curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s htt
 chmod +x ./kubectl
 sudo mv ./kubectl /usr/local/bin/kubectl
 ```
-### Windows 
-
-TODO
-
-## Test the installation (For all)
+## Start Minikube
 
 1. Start minikube 
 ```
 minikube start --vm-driver=none --cpus 4 --memory 8192
 ```
+Note: Adjust CPU and memory depending on your hardware capabilities. 
+
+## Not able to install? 
+For those who are not able to install minikube or do not have right hardware support should click the following link and find **launch cluster** button. 
+
+https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
+
+A terminal shall be opened. Maximise it. 
+
+You would be  skipping the immediate next step. 
+
+
+## Test the installation (For all)
+
 
 2. Once minikube start finishes, run the command below to check the status of the cluster:
 ```
@@ -202,6 +208,16 @@ Events:              <none>
 ```
 
 Note: Observe the output of each command carefully and correlate it with some of the components described during the class. 
+
+
+
+## Download artefacts for next labs
+
+github.com/mudverma/winterschool
+
+```
+git clone https://github.com/mudverma/winterschool.git
+```
 
 
 # Congratulations! You have successfully setup a single node local Kubernetes environment. In next lab we would try to deploy a single container application. 

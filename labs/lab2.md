@@ -1,5 +1,5 @@
-# Lab 2 - Deploying a standalone application as a service
-Goal of this lab is to deploy a standalone application on kubernetes and expose it as a service to external world. For this purpose, we are going to use ngnix. [Ngnix!](https://en.wikipedia.org/wiki/Nginx) is an opensource webserver/reserver proxy. 
+# Lab 2 - Deploying a standalone application as a service and check some of the Kubernetes features. 
+Goal of this lab is to deploy a standalone application on kubernetes using some of it features and expose it as a service to external world. For this purpose, we are going to use ngnix. [Ngnix!](https://en.wikipedia.org/wiki/Nginx) is an opensource webserver/reserver proxy. 
 
 ## Getting Started
 
@@ -155,7 +155,132 @@ $ kubectl delete deployment.apps/nginx-test-deployment service/nginx-test-deploy
 $ kubectl get all
 ```
 
-### That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. 
+
+## Kubernetes Storage 
+
+By default applications are stateless, upon restarts the state is lost. Kubernetes provides a way to create and attach persistent storage to the running containers. Let's try. 
+
+1. Go to Git -> content/pvc 
+```
+$ cd pvc/
+$ ls
+deployment.yaml	pvc.yaml
+```
+
+
+2. Checkout the content of 
+
+pvc.yaml
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: myclaim
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+Note that, persistent volume is a cluster-wide resource that you can use to store data in a way that it persists beyond the lifetime of a pod.  
+
+3. Create the PVC 
+
+```
+$ kubectl apply -f pvc.yaml 
+persistentvolumeclaim/myclaim created
+```
+
+4. Check if the PVC is created 
+
+```
+$ kubectl get pvc
+NAME      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+myclaim   Bound    pvc-ad23cc2d-3730-41c4-8d76-3a90f09526b1   1Gi        RWO            standard       16m
+```
+
+5. Let's create a Pod that can use this storage 
+
+First checkout the content of 
+
+deployment.yaml
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pv-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        app: mypv	
+  template:
+    metadata:
+      labels:
+        app: mypv
+    spec:
+      containers:
+      - name: shell
+        image: centos:7
+        command:
+        - "bin/bash"
+        - "-c"
+        - "sleep 10000"
+        volumeMounts:
+        - name: mypd
+          mountPath: "/tmp/persistent"
+      volumes:
+      - name: mypd
+        persistentVolumeClaim:
+          claimName: myclaim
+```
+
+Create the deployment
+```
+kubectl apply -f deployment.yaml
+```
+
+6. Let's wait for pod to come up. How? 
+
+
+7. One the pod is up, ssh to it by running bash 
+
+```
+kubectl exec -it pv-deploy-xxxxxxx -- bash
+```
+You should be dropped to shell, now go to persistent directory and create a file 
+
+```
+$ kubectl exec -it pv-deploy-f8d4f87f6-8gsjl -- bash
+[root@pv-deploy-f8d4f87f6-8gsjl /]# cd tmp/persistent/
+[root@pv-deploy-f8d4f87f6-8gsjl persistent]# ls
+[root@pv-deploy-f8d4f87f6-8gsjl persistent]# echo "This is winterschool lab" > winterschool.txt
+[root@pv-deploy-f8d4f87f6-8gsjl persistent]# exit
+```
+
+8. Delete the deployment and recreate it, you should now be able to see the file again! 
+
+```
+kubectl delete deployment pv-deploy
+```
+
+wait for Pod to be terminated. Once done, recreate the deployement. 
+
+```
+kubectl apply -f deployment.yaml
+```
+
+Find the pod name and exec to the shell. Inside bash, check if winterschool.txt exists. 
+
+```$ kubectl exec -it pv-deploy-f8d4f87f6-pksc6 -- bash
+[root@pv-deploy-f8d4f87f6-pksc6 /]# cat /tmp/persistent/winterschool.txt 
+This is winterschool lab
+[root@pv-deploy-f8d4f87f6-pksc6 /]# 
+```
+
+### That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. You have also tested some of the native kubernetes features such as PVC and dropping inside the container. 
 
 **For later:** Run other standalone applications on kubernetes. 
 
