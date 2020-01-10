@@ -280,7 +280,7 @@ This is winterschool lab
 [root@pv-deploy-f8d4f87f6-pksc6 /]# 
 ```
 
-### That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. You have also tested some of the native kubernetes features such as PVC. 
+### That's it. You have managed to create a deployment and expose it as a service. You have also managed to bring down the application by deleting the deployment and the service. You have also tested some of the native kubernetes features such as PVC and dropping inside the container. 
 
 **For later:** Run other standalone applications on kubernetes. 
 
