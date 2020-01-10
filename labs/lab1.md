@@ -209,9 +209,11 @@ Events:              <none>
 
 Note: Observe the output of each command carefully and correlate it with some of the components described during the class. 
 
-github.com/mudverma/winterschool
+
 
 ## Download artefacts for next labs
+
+github.com/mudverma/winterschool
 
 ```
 git clone https://github.com/mudverma/winterschool.git
