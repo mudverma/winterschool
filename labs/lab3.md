@@ -14,7 +14,7 @@ Follow the instructions step and by step and do let instructors know if you face
 
 Lab2
 
-### 1. Cleanup and restart minikube
+### 1. Cleanup and restart minikube (people not using their own machine should skip this step)
 
 ```
 minikube stop
@@ -30,14 +30,9 @@ Mac
 ```
 minikube start --cpus 4 --memory 8192
 ```
-### 2. Create a namespace 
 
-```
-kubectl create namespace <name>
-namespace/<name> created  
-```
 
-### 3. Add Docker env to minikube 
+### 2. Add Docker env to minikube 
 
 ```
 minikube docker-env
@@ -194,9 +189,6 @@ spec:
 status: {}
 
 ```
-### 3. Replace namespace name
-Findout namespace in all yaml files and replace it with one you created earlier. 
-
 
 ### 3. Deploy the microservices to Kubernetes 
 
@@ -303,7 +295,4 @@ minikube ip
 Let's access the application
 ```
 http://x.x.x.x/acmeair
-```
-
-
-resources, autoscalar 
+``` 
