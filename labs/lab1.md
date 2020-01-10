@@ -76,7 +76,7 @@ minikube start --vm-driver=none --cpus 4 --memory 8192
 Note: Adjust CPU and memory depending on your hardware capabilities. 
 
 ## Not able to install? 
-For those who are not able to install minikube or do not have right hardware support should click the following link and find launch cluster button. 
+For those who are not able to install minikube or do not have right hardware support should click the following link and find **launch cluster** button. 
 
 https://kubernetes.io/docs/tasks/access-application-cluster/ingress-minikube/
 
