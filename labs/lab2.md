@@ -65,14 +65,14 @@ deployment.apps/nginx-test-deployment created
 4. Check if the deployment is created 
 
 ```
-$ kubectl get deployment
+$ kubectl get deployment -n winterschool
 NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-test-deployment   1/1     1            1           2m
 ```
 
 5. Check if the pod is created 
 ```
-$ kubectl get pods
+$ kubectl get pods -n winterschool 
 NAME                                     READY   STATUS    RESTARTS   AGE
 nginx-test-deployment-56d4bb4855-kkbxb   1/1     Running   0          2m4s
 ```
@@ -87,7 +87,7 @@ For this purpose, we are going to expose this deployment as a service. This serv
 1. Run the following command to expose it as a service: 
 
 ```
-$ kubectl expose deployment nginx-test-deployment --type=NodePort
+$ kubectl expose deployment nginx-test-deployment --type=NodePort -n winterschool
 ```
  
 You should expect the following output 
@@ -98,7 +98,7 @@ service/nginx-test-deployment exposed
 2. Let's validate further by checking the service status. 
 
 ```
-$ kubectl get services
+$ kubectl get services -n winterschool
 ```
 Do you see the service listed there? Yes?  
 
@@ -112,9 +112,9 @@ nginx-test-deployment   NodePort    10.96.147.161   <none>        80:31171/TCP  
 3. Now let's try to access it. We still don't know the URL to this service. Run the following command 
 
 ```
-$ minikube service nginx-test-deployment --url
+$ minikube service nginx-test-deployment --url -n winterschool
 ```
-You should see a URL in output. Visit this URL in your browser. And you should see the ngnix welcome page! 
+You should see a URL in output. Visit this URL in your browser, or do wget on url if you are using virtual terminal. And you should see the ngnix welcome index page! 
 
 ## Dashboard
 
