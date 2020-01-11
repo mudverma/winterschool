@@ -21,6 +21,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-test-deployment
+  namespace: winterschool
   labels:
     app: nginx-test
 spec:
@@ -35,6 +36,10 @@ spec:
       containers:
       - name: nginx-test
         image: nginx:latest
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"      
         ports:
         - containerPort: 80
 ```
