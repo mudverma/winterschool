@@ -14,21 +14,20 @@ Follow the instructions step and by step and do let instructors know if you face
 
 Lab2
 
-### 1. Cleanup and restart minikube (people not using their own machine should skip this step)
+### 1. Cleanup everything (people not using their own machine should skip this step)
+
+See what is there
+```
+kubectl get all
+```
+Now delete all the deployments, services, and ingress
 
 ```
-minikube stop
-minikube delete
-```
-
-Linux
-```
-minikube start --vm-driver=none --cpus 4 --memory 8192
-```
-
-Mac
-```
-minikube start --cpus 4 --memory 8192
+kubectl delete --all deployment
+kubectl delete --all services
+kubectl delete --all ingress
+kubectl delete --all pvc
+kubectl delete namespace winterschool
 ```
 
 
