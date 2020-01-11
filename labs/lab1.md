@@ -1,9 +1,9 @@
 # Lab 1 - Setting up Kubernetes
-Goal of this lab is to setup kubernetes cluster locally for application development. For this purpose we are going to use "minikube". Minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. It supports most of the native kubernates functions.
+Goal of this lab is to learn setting up a local kubernetes cluster for application development. For this purpose we are going to use "minikube". Minikube implements a local Kubernetes cluster on macOS, Linux, and Windows. It supports most of the native kubernates functions.
 
 ## Getting Started
 
-These instructions will get you Kubernetes cluster up and running on your local machine for development and testing purposes. 
+These instructions will get your Kubernetes cluster up and running on your local machine for development and testing purposes. 
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ sysctl -a | grep -E --color 'machdep.cpu.features|VMX'
 If you see VMX in the output (should be colored), the VT-x feature is enabled in your machine.
 
 
-2. Install git and curl 
+2. Install git and curl - Ignore if already done. 
 
 ```
 sudo apt-get install git  OR sudo yum install git

@@ -14,13 +14,20 @@ Lab1
 Kubernetes resources are created in a declarative way using yaml files. Each resource has a configuration yaml file that allows user to specify different parameters within a resource. 
 For please take 5 mins to go through this link -> https://developer.ibm.com/tutorials/yaml-basics-and-usage-in-kubernetes/ 
 
-1. Create the ngnix deployment configuration file `ngnix-deployment.yaml`. Open your favorite editor and copy paste the following. Take a moment to read different keys and values. 
+1. Create a namespace  - You may change the name
+
+```
+kubectl create namespace winterschool 
+```
+
+2. Create the ngnix deployment configuration file `ngnix-deployment.yaml`. Open your favorite editor and copy paste the following. Take a moment to read different keys and values. 
 
 ```
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nginx-test-deployment
+  namespace: winterschool
   labels:
     app: nginx-test
 spec:
@@ -35,10 +42,14 @@ spec:
       containers:
       - name: nginx-test
         image: nginx:latest
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"      
         ports:
         - containerPort: 80
 ```
-2. Create a deployment. 
+3. Create a deployment. 
 
 ```
 kubectl apply -f ngnix-deployment.yaml
@@ -51,7 +62,7 @@ $ kubectl apply -f ngnix-deployment.yaml
 deployment.apps/nginx-test-deployment created
 
 ```
-3. Check if the deployment is created 
+4. Check if the deployment is created 
 
 ```
 $ kubectl get deployment
@@ -59,7 +70,7 @@ NAME                    READY   UP-TO-DATE   AVAILABLE   AGE
 nginx-test-deployment   1/1     1            1           2m
 ```
 
-4. Check if the pod is created 
+5. Check if the pod is created 
 ```
 $ kubectl get pods
 NAME                                     READY   STATUS    RESTARTS   AGE
