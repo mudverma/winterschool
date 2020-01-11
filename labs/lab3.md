@@ -180,7 +180,7 @@ ingress was successfully enabled
 
 ### 2. Check artefacts 
 
-Go to /script directory of downloaded git repo  
+Go to content/acme-air directory of downloaded git repo  
 https://github.com/mudverma/winterschool
 
 
