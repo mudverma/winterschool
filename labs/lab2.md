@@ -103,7 +103,7 @@ $ kubectl get services -n winterschool
 Do you see the service listed there? Yes?  
 
 ```
-$ kubectl get services
+$ kubectl get services -n winterschool
 NAME                    TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
 kubernetes              ClusterIP   10.96.0.1       <none>        443/TCP        23h
 nginx-test-deployment   NodePort    10.96.147.161   <none>        80:31171/TCP   53s
@@ -137,7 +137,7 @@ It should open up the dashboard in your default browser.
 
 1. Checkout the relevant ngnix deployment and service. Run the following command the fetch all the resources. 
 ```
-$ kubectl get all
+$ kubectl get all -n winterschool
 ```
 Do you see your deployment and service listed here? 
 
@@ -158,7 +158,7 @@ replicaset.apps/nginx-test-deployment-56d4bb4855   1         1         1       4
 
 2. To delete it, run the following command
 ```
-$ kubectl delete deployment.apps/nginx-test-deployment service/nginx-test-deployment
+$ kubectl delete deployment.apps/nginx-test-deployment service/nginx-test-deployment -n winterschool
 ```
 
 3. Check if ngnix deployment or service exist. 
