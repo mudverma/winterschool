@@ -128,10 +128,7 @@ Notice that it only has one node running.
 
 Output Example:
 ```
-$ kubectl get nodes
-NAME       STATUS   ROLES    AGE    VERSION
-minikube   Ready    master   147m   v1.15.0
-mudits-mbp:winterschool mudit$ kubectl describe node
+$ kubectl describe node
 Name:               minikube
 Roles:              master
 Labels:             beta.kubernetes.io/arch=amd64
